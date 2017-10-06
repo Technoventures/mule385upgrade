@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--PatternLayout pattern="%-5p %d [%t] %c: %m%n" -->
+            <JSONLayout compact="true" eventEol="true" properties="true" complete="true">
+                <AdditionalField key="log_timestamp" value="%d{yyyy-MM-dd HH:mm:ss.SSS}{UTC}Z"/>
+            </JSONLayout>
+        </Console>
+        <JDBC name="databaseAppender" tableName="es_logs">
+            <ConnectionFactory class="com.umg.entlogger.JDBCLoggerConnectionFactory" method="getDatabaseConnection" />
+            <Column name="utc_created_date" isEventTimestamp="true" />
+            <Column name="log_timestamp" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}{UTC}Z" isUnicode="false"/>
+            <Column name="log_level" pattern="%level" isUnicode="false"/>
+            <Column name="node_name" pattern="%X{host_name}" isUnicode="false"/>
+            <Column name="micro_service_name" pattern="%X{service_name}" isUnicode="false"/>
+            <Column name="thread_id" pattern="[%t]" isUnicode="false"/>
+            <Column name="message_id" pattern="%X{message_id}" isUnicode="false"/>
+            <Column name="log_elapsed_time" pattern="%r" isUnicode="false"/>
+            <Column name="message_source" pattern="%X{source_system}" isUnicode="false"/>
+            <Column name="message_action" pattern="%X{action}" isUnicode="false"/>
+            <Column name="resource_id" pattern="%X{object_id}" isUnicode="false"/>
+            <Column name="resource_name" pattern="%X{object}" isUnicode="false"/>
+            <Column name="log_category" pattern="%logger" isUnicode="false"/>
+            <Column name="logger_name" pattern="%logger" isUnicode="false"/>
+            <Column name="log_message" pattern="%message" isUnicode="false"/>
+            <Column name="error_details" pattern="%ex{full}" isUnicode="false"/>
+            <Column name="src_uid" pattern="%X{message_correlation_id}" isUnicode="false"/>
+        </JDBC>
+    </Appenders>
+
+    <Loggers>
+
+        <!-- CXF is used heavily by Mule for web services -->
+        <AsyncLogger name="org.apache.cxf" level="WARN"/>
+
+        <!-- Apache Commons tend to make a lot of noise which can clutter the log-->
+        <AsyncLogger name="org.apache" level="WARN"/>
+
+        <!-- Reduce startup noise -->
+        <AsyncLogger name="org.springframework.beans.factory" level="WARN"/>
+
+        <!-- Mule classes -->
+        <AsyncLogger name="org.mule" level="INFO"/>
+        <AsyncLogger name="com.mulesoft" level="INFO"/>
+
+        <!-- Reduce DM verbosity -->
+        <AsyncLogger name="org.jetel" level="WARN"/>
+        <AsyncLogger name="Tracking" level="WARN"/>
+
+        <!--- Gateway Related Loggers -->
+        <AsyncLogger name="com.mulesoft.analytics" level="INFO" />
+        <AsyncLogger name="com.mulesoft.module.client" level="INFO"/>
+        <AsyncLogger name="com.mulesoft.module.policies" level="INFO"/>
+		
+		<!-- All UMG Components -->
+		<AsyncLogger name="com.umg" level="INFO"/>
+		
+		
+        <AsyncRoot level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="databaseAppender"/>
+        </AsyncRoot>
+    </Loggers>
+
+</Configuration>

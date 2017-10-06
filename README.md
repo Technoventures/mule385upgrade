@@ -1,4 +1,4 @@
-#Hello World 
+# Mule 3.8.5 upgrade - Hello World with Enterprise logger integration
 
 This application demonstrates a simple HTTP request-response activity. Mule responds to end user calls submitted via Web browser with a message that reads, "Hello World". This example was designed to demonstrate the ability of a Mule application to interact with an end user via an HTTP request. The goal is to introduce users to Anypoint Studio by illustrating a very simple functionality.
 
@@ -38,4 +38,3 @@ Follow [the procedure](http://www.mulesoft.org/documentation/display/current/Imp
 
 * Learn more about configuring an [HTTP Endpoint](http://www.mulesoft.org/documentation/display/current/HTTP+Connector) in Studio.
 * Read about the concept of [flows](http://www.mulesoft.org/documentation/display/current/Mule+Concepts) in Mule.
-# mule385upgrade
