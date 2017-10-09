@@ -16,6 +16,7 @@
         </http:listener>
         <custom-interceptor class="com.umg.helloworld.interceptor.EnterpriseLoggingInterceptor" />
         <logger level="INFO" category="com.umg.helloworld" message="*** in the first log" />
+        <logger level="INFO" category="com.umg.helloworld" message="*** in the second log" />
         <set-payload doc:description="This processor sets the payload of the message to the string 'Hello World'." doc:name="Set Payload to a constant string" value="Hello World"/>
     </flow>
 </mule>
