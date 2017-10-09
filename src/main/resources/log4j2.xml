@@ -2,10 +2,8 @@
 <Configuration status="debug">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <!--PatternLayout pattern="%-5p %d [%t] %c: %m%n"
-            <EnterpriseLogger compact="true" eventEol="true" properties="true" complete="true"> -->
-
-            <EnterpriseLogger/>
+            <!--PatternLayout pattern="%-5p %d [%t] %c: %m%n" -->
+            <EnterpriseLogger compact="true" eventEol="true" properties="true" complete="true"/> 
         </Console>
         <JDBC name="databaseAppender" tableName="es_logs">
             <ConnectionFactory class="com.umg.entlogger.JDBCLoggerConnectionFactory" method="getDatabaseConnection" />
